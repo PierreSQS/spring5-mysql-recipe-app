@@ -1,6 +1,6 @@
 # Spring Boot Recipe Application
 
-[![CircleCI](https://circleci.com/gh/PierreSQS/spring5-mysql-recipe-app/tree/master.svg?style=svg)](https://circleci.com/gh/PierreSQS/spring5-mysql-recipe-app/tree/master)
+[![CircleCI](https://circleci.com/gh/PierreSQS/spring5-mysql-recipe-app/tree/mysql-scripts-pierrot.svg?style=svg)](https://circleci.com/gh/PierreSQS/spring5-mysql-recipe-app/tree/mysql-scripts-pierrot)
 
 [![codecov](https://codecov.io/gh/springframeworkguru/spring5-mysql-recipe-app/branch/master/graph/badge.svg)](https://codecov.io/gh/springframeworkguru/spring5-mysql-recipe-app)
 
