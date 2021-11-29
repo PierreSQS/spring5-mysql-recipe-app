@@ -20,8 +20,13 @@ jobs:
           command: mvn -B -DskipTests clean package
       # Then run your tests!
       - run:
-          name: Test
-          command: mvn -V test
+          name: Test and Test Coverage
+          command: mvn -V test cobertura:cobertura
+
+      # Then request Test Coverage to CodeCov!
+      - run:
+          name: Send to CodeCov
+          command: bash <(curl -s https://codecov.io/bash)
 
 workflows:
   # Below is the definition of your workflow.
