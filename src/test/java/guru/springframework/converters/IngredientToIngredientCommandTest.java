@@ -4,44 +4,44 @@ import guru.springframework.commands.IngredientCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
 import guru.springframework.domain.UnitOfMeasure;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by jt on 6/21/17.
  */
-public class IngredientToIngredientCommandTest {
+class IngredientToIngredientCommandTest {
 
     public static final Recipe RECIPE = new Recipe();
     public static final BigDecimal AMOUNT = new BigDecimal("1");
     public static final String DESCRIPTION = "Cheeseburger";
-    public static final Long UOM_ID = new Long(2L);
-    public static final Long ID_VALUE = new Long(1L);
+    public static final Long UOM_ID = 2L;
+    public static final Long ID_VALUE = 1L;
 
 
     IngredientToIngredientCommand converter;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         converter = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
     }
 
     @Test
-    public void testNullConvert() throws Exception {
+    void testNullConvert() {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() throws Exception {
+    void testEmptyObject() {
         assertNotNull(converter.convert(new Ingredient()));
     }
 
     @Test
-    public void testConvertNullUOM() throws Exception {
+    void testConvertNullUOM() {
         //given
         Ingredient ingredient = new Ingredient();
         ingredient.setId(ID_VALUE);
@@ -59,7 +59,7 @@ public class IngredientToIngredientCommandTest {
     }
 
     @Test
-    public void testConvertWithUom() throws Exception {
+    void testConvertWithUom() {
         //given
         Ingredient ingredient = new Ingredient();
         ingredient.setId(ID_VALUE);

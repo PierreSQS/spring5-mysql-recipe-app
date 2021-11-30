@@ -3,8 +3,8 @@ package guru.springframework.controllers;
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.services.ImageService;
 import guru.springframework.services.RecipeService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -12,13 +12,13 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ImageControllerTest {
+class ImageControllerTest {
 
     @Mock
     ImageService imageService;
@@ -30,9 +30,9 @@ public class ImageControllerTest {
 
     MockMvc mockMvc;
 
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
 
         controller = new ImageController(imageService, recipeService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
@@ -41,7 +41,7 @@ public class ImageControllerTest {
     }
 
     @Test
-    public void getImageForm() throws Exception {
+    void getImageForm() throws Exception {
         //given
         RecipeCommand command = new RecipeCommand();
         command.setId(1L);
@@ -58,7 +58,7 @@ public class ImageControllerTest {
     }
 
     @Test
-    public void handleImagePost() throws Exception {
+    void handleImagePost() throws Exception {
         MockMultipartFile multipartFile =
                 new MockMultipartFile("imagefile", "testing.txt", "text/plain",
                         "Spring Framework Guru".getBytes());
@@ -72,7 +72,7 @@ public class ImageControllerTest {
 
 
     @Test
-    public void renderImageFromDB() throws Exception {
+    void renderImageFromDB() throws Exception {
 
         //given
         RecipeCommand command = new RecipeCommand();
@@ -96,13 +96,13 @@ public class ImageControllerTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
 
-        byte[] reponseBytes = response.getContentAsByteArray();
+        byte[] responseBytes = response.getContentAsByteArray();
 
-        assertEquals(s.getBytes().length, reponseBytes.length);
+        assertEquals(s.getBytes().length, responseBytes.length);
     }
 
     @Test
-    public void testGetImageNumberFormatException() throws Exception {
+    void testGetImageNumberFormatException() throws Exception {
 
         mockMvc.perform(get("/recipe/asdf/recipeimage"))
                 .andExpect(status().isBadRequest())
