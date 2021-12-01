@@ -9,8 +9,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     database: mysql
     show-sql: true
-    defer-datasource-initialization: true
-
+  # triggers database initialization with scripts
+  sql:
+    init:
+      mode: always
 #    properties:
 #      javax:
 #        persistence:
