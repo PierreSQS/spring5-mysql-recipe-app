@@ -3,16 +3,18 @@ spring:
     url: jdbc:mysql://localhost:3307/sfg_dev
     username: sfg_dev_user
     password: sfg_dev_user
+  # triggers database initialization with scripts
+  # in this case data.sql
+  sql:
+    init:
+      mode: always
   jpa:
     hibernate:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.MySQL8Dialect
     database: mysql
     show-sql: true
-  # triggers database initialization with scripts
-  sql:
-    init:
-      mode: always
+
 #    properties:
 #      javax:
 #        persistence:
@@ -20,4 +22,4 @@ spring:
 #            create-source: metadata
 #            scripts:
 #              action: create
-#              create-target: create_db-spring5-sec18-chap311.sql
+#              create-target: src/main/scripts/create-mysql_tables-spring5-sec18_chap312.sql
