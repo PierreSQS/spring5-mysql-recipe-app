@@ -1,14 +1,18 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/sfg_dev
+    url: jdbc:mysql://localhost:3307/sfg_dev
     username: sfg_dev_user
-    password: guru
+    password: sfg_dev_user
   jpa:
     hibernate:
       ddl-auto: validate
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     database: mysql
     show-sql: true
+  # triggers database initialization with scripts
+  sql:
+    init:
+      mode: always
 #    properties:
 #      javax:
 #        persistence:
@@ -16,4 +20,4 @@ spring:
 #            create-source: metadata
 #            scripts:
 #              action: create
-#              create-target: guru_database_create.sql
+#              create-target: create_db-spring5-sec18-chap311.sql

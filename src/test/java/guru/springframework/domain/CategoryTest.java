@@ -1,24 +1,24 @@
 package guru.springframework.domain;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by jt on 6/17/17.
  */
-public class CategoryTest {
+class CategoryTest {
 
     Category category;
 
-    @Before
-    public void setUp(){
+    @BeforeEach
+    void setUp(){
         category = new Category();
     }
 
     @Test
-    public void getId() throws Exception {
+    void getId() {
         Long idValue = 4L;
 
         category.setId(idValue);
@@ -27,11 +27,11 @@ public class CategoryTest {
     }
 
     @Test
-    public void getDescription() throws Exception {
+    void getDescription() {
     }
 
     @Test
-    public void getRecipes() throws Exception {
+    void getRecipes() {
     }
 
 }

@@ -5,8 +5,8 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.services.IngredientService;
 import guru.springframework.services.RecipeService;
 import guru.springframework.services.UnitOfMeasureService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class IngredientControllerTest {
+class IngredientControllerTest {
 
     @Mock
     IngredientService ingredientService;
@@ -36,16 +36,16 @@ public class IngredientControllerTest {
 
     MockMvc mockMvc;
 
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
 
         controller = new IngredientController(ingredientService, recipeService, unitOfMeasureService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test
-    public void testListIngredients() throws Exception {
+    void testListIngredients() throws Exception {
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
         when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
@@ -61,7 +61,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testShowIngredient() throws Exception {
+    void testShowIngredient() throws Exception {
         //given
         IngredientCommand ingredientCommand = new IngredientCommand();
 
@@ -76,7 +76,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testNewIngredientForm() throws Exception {
+    void testNewIngredientForm() throws Exception {
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(1L);
@@ -97,7 +97,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testUpdateIngredientForm() throws Exception {
+    void testUpdateIngredientForm() throws Exception {
         //given
         IngredientCommand ingredientCommand = new IngredientCommand();
 
@@ -114,7 +114,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testSaveOrUpdate() throws Exception {
+    void testSaveOrUpdate() throws Exception {
         //given
         IngredientCommand command = new IngredientCommand();
         command.setId(3L);
@@ -135,7 +135,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testDeleteIngredient() throws Exception {
+    void testDeleteIngredient() throws Exception {
 
         //then
         mockMvc.perform(get("/recipe/2/ingredient/3/delete")

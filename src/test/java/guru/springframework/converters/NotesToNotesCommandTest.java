@@ -2,27 +2,29 @@ package guru.springframework.converters;
 
 import guru.springframework.commands.NotesCommand;
 import guru.springframework.domain.Notes;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+
 
 /**
  * Created by jt on 6/21/17.
  */
-public class NotesToNotesCommandTest {
+class NotesToNotesCommandTest {
 
-    public static final Long ID_VALUE = new Long(1L);
+    public static final Long ID_VALUE = 1L;
     public static final String RECIPE_NOTES = "Notes";
     NotesToNotesCommand converter;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         converter = new NotesToNotesCommand();
     }
 
     @Test
-    public void convert() throws Exception {
+    void convert() throws Exception {
         //given
         Notes notes = new Notes();
         notes.setId(ID_VALUE);
@@ -37,12 +39,12 @@ public class NotesToNotesCommandTest {
     }
 
     @Test
-    public void testNull() throws Exception {
-        assertNull(converter.convert(null));
+    void testNull() {
+        assertNull((converter.convert(null)));
     }
 
     @Test
-    public void testEmptyObject() throws Exception {
+    void testEmptyObject() {
         assertNotNull(converter.convert(new Notes()));
     }
 }
