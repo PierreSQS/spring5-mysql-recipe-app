@@ -18,4 +18,4 @@ spring:
 #            create-source: metadata
 #            scripts:
 #              action: create
-#              create-target: create_db-spring5-sec18-chap311.sql
+#              create-target: src/main/scripts/create_tables-spring5-sec18-chap312.sql
