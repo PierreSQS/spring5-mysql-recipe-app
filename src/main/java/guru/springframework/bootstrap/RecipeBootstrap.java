@@ -6,7 +6,9 @@ import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.Optional;
 
 @Slf4j
 @Component
+@Profile({"default"})
 public class RecipeBootstrap implements CommandLineRunner {
 
     public static final String EXPECTED_UOM_NOT_FOUND = "Expected UOM Not Found";
@@ -33,6 +36,7 @@ public class RecipeBootstrap implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String...args) {
         log.debug("Loading Bootstrap Data...");
         recipeRepository.saveAll(getRecipes());
