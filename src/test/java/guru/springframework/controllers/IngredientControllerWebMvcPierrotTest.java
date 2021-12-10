@@ -2,19 +2,21 @@ package guru.springframework.controllers;
 
 import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.RecipeCommand;
+import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.services.IngredientService;
 import guru.springframework.services.RecipeService;
 import guru.springframework.services.UnitOfMeasureService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashSet;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,27 +24,24 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-class IngredientControllerTest {
+@WebMvcTest(IngredientController.class)
+class IngredientControllerWebMvcPierrotTest {
 
-    @Mock
+    @MockBean
     IngredientService ingredientService;
 
-    @Mock
+    @MockBean
     UnitOfMeasureService unitOfMeasureService;
 
-    @Mock
+    @MockBean
     RecipeService recipeService;
 
-    IngredientController controller;
-
+    @Autowired
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
 
-        controller = new IngredientController(ingredientService, recipeService, unitOfMeasureService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test
@@ -64,7 +63,11 @@ class IngredientControllerTest {
     @Test
     void testShowIngredient() throws Exception {
         //given
+        UnitOfMeasureCommand unitOfMeasureCmd = new UnitOfMeasureCommand();
+        unitOfMeasureCmd.setDescription("TeaSpoon");
         IngredientCommand ingredientCommand = new IngredientCommand();
+
+        ingredientCommand.setUom(unitOfMeasureCmd);
 
         //when
         when(ingredientService.findByRecipeIdAndIngredientId(anyLong(), anyLong())).thenReturn(ingredientCommand);
@@ -74,6 +77,7 @@ class IngredientControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/ingredient/show"))
                 .andExpect(model().attributeExists("ingredient"))
+                .andExpect(content().string(containsString("<title>View Ingredient</title>")))
                 .andDo(print());
     }
 
