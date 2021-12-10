@@ -8,6 +8,7 @@ import guru.springframework.services.UnitOfMeasureService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
@@ -35,13 +36,13 @@ class IngredientControllerFullAnnotationPierrotTest {
     @Mock
     RecipeService recipeService;
 
+    @InjectMocks
     IngredientController controller;
 
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        controller = new IngredientController(ingredientService, recipeService, unitOfMeasureService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
